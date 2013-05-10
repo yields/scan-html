@@ -1,7 +1,7 @@
 
-# scan-html (WIP)
+# scan-html
 
-  a tiny html lexer.
+  a tiny html lexer (WIP).
 
 ## Installation
 
