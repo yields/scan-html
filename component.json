@@ -1,0 +1,14 @@
+{
+  "name": "scan-html",
+  "repo": "yields/scan-html",
+  "description": "a tiny html lexer.",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}
