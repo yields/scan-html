@@ -60,6 +60,7 @@ module.exports = function(html, emit){
    */
   
   function text(){
+    if ('>' == peek()) consume(1);
     while (lessthan());
     var buf = html.slice(0, pos);
     consume(buf.length);
@@ -100,19 +101,40 @@ module.exports = function(html, emit){
     consume(buf.length);
     var tag = buf.substr(1);
     if (1 < buf.length) emit('open', buf.substr(1));
-    return attrs;
+    return attrkey;
   }
 
   /**
-   * ` *(attrs)>`
+   * ` *(key)*`
    */
   
-  function attrs(){
-    while (greaterthan());
+  function attrkey(){
+    whitespace();
+    while ('>' != peek() && ' ' != peek() && '=' != peek() && next());
     var buf = html.slice(0, pos);
-    consume(1 + buf.length);
-    if (buf) emit('attrs', buf);
-    return text;
+    consume(buf.length);
+    if (buf) emit('attrkey', buf.trim());
+    return attrval;
+  }
+
+  /**
+   * `=?(["'](val)['"])`
+   */
+  
+  function attrval(){
+    if (' ' == peek()) return attrkey;
+    if ('>' == peek()) return text;
+    if ('=' == peek()) consume(1);
+    var end = ' ';
+    if ('"' == peek()) end = '"';
+    if ("'" == peek()) end = "'";
+    if (' ' != end) consume(1);
+    while (end != peek() && next());
+    var buf = html.slice(0, pos);
+    consume(buf.length);
+    if (' ' != end) consume(1);
+    emit('attrval', buf);
+    return attrval;
   }
 
   /**
@@ -125,6 +147,15 @@ module.exports = function(html, emit){
     consume(1 + buf.length);
     if (2 < buf.length) emit('close', buf.substr(2));
     return text;
+  }
+
+  /**
+   * consume whitespace.
+   */
+  
+  function whitespace(){
+    while (' ' == peek() && next());
+    consume(pos);
   }
 
   /**
