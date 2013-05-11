@@ -40,7 +40,8 @@ open: title
 text: foobaz
 close: title
 open: script
-attrs: src='baz'
+attrkey: src
+attrval: 'baz'
 close: script
 open: meta
 attrkey: type
