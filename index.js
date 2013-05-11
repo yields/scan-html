@@ -48,14 +48,6 @@ module.exports = function(html, emit){
   }
 
   /**
-   * lookahead
-   */
-  
-  function lookahead(n){
-    return html.charAt(n);
-  }
-
-  /**
    * `>(text)<`
    */
   
