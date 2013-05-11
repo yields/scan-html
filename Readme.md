@@ -43,11 +43,15 @@ open: script
 attrs: src='baz'
 close: script
 open: meta
-attrs: type='dummy' href
+attrkey: type
+attrval: dummy
+attrkey: href
 close: head
 open: body
 open: h1
-attrs: this is broken!
+attrkey: this 
+attrkey: is 
+attrkey: broken!
 open: div
 close: div
 close: body
